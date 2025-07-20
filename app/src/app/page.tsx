@@ -3,6 +3,8 @@
 import { ConnectWallet } from '@/components/connect-wallet';
 import { XAccountBinding } from '@/components/x-account-binding';
 import { BilibiliAccountBinding } from '@/components/bilibili-account-binding';
+import { TikTokAccountBinding } from '@/components/tiktok-account-binding';
+import { BinanceAccountBinding } from '@/components/binance-account-binding';
 import { UserInfoCard } from '@/components/user-info-card';
 import { PluginStatusCard } from '@/components/plugin-status-card';
 import { AboutSection } from '@/components/about-section';
@@ -581,24 +583,17 @@ export default function Home() {
                   </p>
                 </div>
               </div>
-              <div style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                padding: '40px 20px',
-                borderRadius: '12px',
-                background: 'rgba(0, 0, 0, 0.1)',
-                border: '2px dashed rgba(0, 0, 0, 0.3)'
-              }}>
-                <p style={{
-                  color: '#666',
+              {isConnected && <TikTokAccountBinding />}
+              {!isConnected && (
+                <p style={{ 
+                  textAlign: 'center', 
+                  color: '#999',
                   fontSize: '16px',
-                  fontWeight: '500',
-                  margin: 0
+                  margin: '20px 0'
                 }}>
-                  开发中...
+                  请先连接钱包
                 </p>
-              </div>
+              )}
             </div>
 
             {/* Binance Account Card */}
@@ -650,24 +645,17 @@ export default function Home() {
                   </p>
                 </div>
               </div>
-              <div style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                padding: '40px 20px',
-                borderRadius: '12px',
-                background: 'rgba(240, 185, 11, 0.1)',
-                border: '2px dashed rgba(240, 185, 11, 0.3)'
-              }}>
-                <p style={{
-                  color: '#666',
+              {isConnected && <BinanceAccountBinding />}
+              {!isConnected && (
+                <p style={{ 
+                  textAlign: 'center', 
+                  color: '#999',
                   fontSize: '16px',
-                  fontWeight: '500',
-                  margin: 0
+                  margin: '20px 0'
                 }}>
-                  开发中...
+                  请先连接钱包
                 </p>
-              </div>
+              )}
             </div>
           </div>
 
