@@ -1,7 +1,6 @@
 'use client';
 
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { Button } from '@/components/ui/button';
 
 export function ConnectWallet() {
   return (
@@ -37,27 +36,84 @@ export function ConnectWallet() {
             {(() => {
               if (!connected) {
                 return (
-                  <Button onClick={openConnectModal} size="lg">
+                  <button
+                    onClick={openConnectModal}
+                    style={{
+                      background: 'linear-gradient(135deg, #ff6b6b, #ee5a24)',
+                      color: '#fff',
+                      border: 'none',
+                      borderRadius: '16px',
+                      padding: '12px 24px',
+                      fontSize: '16px',
+                      fontWeight: '600',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
+                      boxShadow: '0 8px 25px rgba(255, 107, 107, 0.3)',
+                      fontFamily: 'inherit'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                      e.currentTarget.style.boxShadow = '0 12px 35px rgba(255, 107, 107, 0.4)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 8px 25px rgba(255, 107, 107, 0.3)';
+                    }}
+                  >
                     连接钱包
-                  </Button>
+                  </button>
                 );
               }
 
               if (chain.unsupported) {
                 return (
-                  <Button onClick={openChainModal} variant="destructive" size="lg">
+                  <button
+                    onClick={openChainModal}
+                    style={{
+                      background: 'linear-gradient(135deg, #ff4757, #c44569)',
+                      color: '#fff',
+                      border: 'none',
+                      borderRadius: '16px',
+                      padding: '12px 24px',
+                      fontSize: '16px',
+                      fontWeight: '600',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
+                      boxShadow: '0 8px 25px rgba(255, 71, 87, 0.3)',
+                      fontFamily: 'inherit'
+                    }}
+                  >
                     错误网络
-                  </Button>
+                  </button>
                 );
               }
 
               return (
                 <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                  <Button
+                  <button
                     onClick={openChainModal}
-                    variant="outline"
-                    size="sm"
-                    style={{ display: 'flex', alignItems: 'center', gap: '8px' }}
+                    style={{
+                      background: 'rgba(255, 255, 255, 0.2)',
+                      color: '#fff',
+                      border: '1px solid rgba(255, 255, 255, 0.3)',
+                      borderRadius: '12px',
+                      padding: '8px 16px',
+                      fontSize: '14px',
+                      fontWeight: '500',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
+                      backdropFilter: 'blur(10px)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '8px',
+                      fontFamily: 'inherit'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.3)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)';
+                    }}
                   >
                     {chain.hasIcon && (
                       <div
@@ -79,14 +135,37 @@ export function ConnectWallet() {
                       </div>
                     )}
                     {chain.name}
-                  </Button>
+                  </button>
 
-                  <Button onClick={openAccountModal} size="sm">
+                  <button
+                    onClick={openAccountModal}
+                    style={{
+                      background: 'rgba(255, 255, 255, 0.9)',
+                      color: '#1a1a1a',
+                      border: 'none',
+                      borderRadius: '12px',
+                      padding: '8px 16px',
+                      fontSize: '14px',
+                      fontWeight: '600',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
+                      backdropFilter: 'blur(10px)',
+                      fontFamily: 'inherit'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.background = '#fff';
+                      e.currentTarget.style.transform = 'translateY(-1px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.9)';
+                      e.currentTarget.style.transform = 'translateY(0)';
+                    }}
+                  >
                     {account.displayName}
                     {account.displayBalance
                       ? ` (${account.displayBalance})`
                       : ''}
-                  </Button>
+                  </button>
                 </div>
               );
             })()}

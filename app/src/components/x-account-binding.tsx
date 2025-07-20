@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { useAccount, useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
-import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { initializePrimus, generateXAccountProof } from '@/lib/primus';
 import { Twitter, Loader2, CheckCircle, XCircle } from 'lucide-react';
@@ -453,111 +452,246 @@ export function XAccountBinding({ onBindingComplete, onPrimusStatusChange }: XAc
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px', border: '1px solid #e5e7eb', borderRadius: '8px' }}>
-        
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      {/* Main Action Section */}
+      <div style={{ 
+        display: 'flex', 
+        alignItems: 'center', 
+        justifyContent: 'space-between'
+      }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <Twitter style={{ width: '24px', height: '24px', color: '#3b82f6' }} />
-          <div>
-            <h3 style={{ fontWeight: '600' }}>X账号绑定</h3>
-            <p style={{ fontSize: '14px', color: '#6b7280' }}>
-              使用zkTLS技术验证您的X账号身份
-            </p>
-          </div>
+          {isWalletBound ? (
+            <CheckCircle style={{ width: '24px', height: '24px', color: '#10b981' }} />
+          ) : verifiedXAccount ? (
+            <CheckCircle style={{ width: '24px', height: '24px', color: '#3b82f6' }} />
+          ) : (
+            <XCircle style={{ width: '24px', height: '24px', color: '#9ca3af' }} />
+          )}
+          <span style={{ 
+            fontSize: '16px', 
+            fontWeight: '600',
+            color: isWalletBound ? '#10b981' : verifiedXAccount ? '#3b82f6' : '#6b7280'
+          }}>
+            {isWalletBound ? '已绑定' : verifiedXAccount ? '已验证' : '未验证'}
+          </span>
         </div>
         
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+        <div>
           {isWalletBound ? (
-            <CheckCircle style={{ width: '20px', height: '20px', color: '#10b981' }} />
-          ) : verifiedXAccount ? (
-            <CheckCircle style={{ width: '20px', height: '20px', color: '#3b82f6' }} />
-          ) : (
-            <XCircle style={{ width: '20px', height: '20px', color: '#9ca3af' }} />
-          )}
-          
-          {isWalletBound ? (
-            <Button
+            <button
               onClick={handleUnbindX}
               disabled={isLoading || isPending || isConfirming}
-              variant="outline"
-              size="sm"
+              style={{
+                background: 'linear-gradient(135deg, #ff6b6b, #ee5a24)',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '12px',
+                padding: '10px 20px',
+                fontSize: '14px',
+                fontWeight: '600',
+                cursor: isLoading || isPending || isConfirming ? 'not-allowed' : 'pointer',
+                transition: 'all 0.2s ease',
+                opacity: isLoading || isPending || isConfirming ? 0.7 : 1,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                fontFamily: 'inherit'
+              }}
             >
               {isLoading || isPending || isConfirming ? (
                 <>
-                  <Loader2 style={{ width: '16px', height: '16px', marginRight: '8px', animation: 'spin 1s linear infinite' }} />
+                  <Loader2 style={{ width: '16px', height: '16px', animation: 'spin 1s linear infinite' }} />
                   处理中...
                 </>
               ) : (
                 '解绑X账号'
               )}
-            </Button>
+            </button>
           ) : verifiedXAccount ? (
-            <Button
+            <button
               onClick={handleSubmitToBlockchain}
               disabled={isLoading || isPending || isConfirming}
-              size="sm"
-              style={{ backgroundColor: '#059669' }}
+              style={{
+                background: 'linear-gradient(135deg, #10b981, #059669)',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '12px',
+                padding: '10px 20px',
+                fontSize: '14px',
+                fontWeight: '600',
+                cursor: isLoading || isPending || isConfirming ? 'not-allowed' : 'pointer',
+                transition: 'all 0.2s ease',
+                opacity: isLoading || isPending || isConfirming ? 0.7 : 1,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                fontFamily: 'inherit',
+                boxShadow: '0 4px 15px rgba(16, 185, 129, 0.3)'
+              }}
+              onMouseEnter={(e) => {
+                if (!isLoading && !isPending && !isConfirming) {
+                  e.currentTarget.style.transform = 'translateY(-1px)';
+                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(16, 185, 129, 0.4)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 15px rgba(16, 185, 129, 0.3)';
+              }}
             >
               {isLoading || isPending || isConfirming ? (
                 <>
-                  <Loader2 style={{ width: '16px', height: '16px', marginRight: '8px', animation: 'spin 1s linear infinite' }} />
+                  <Loader2 style={{ width: '16px', height: '16px', animation: 'spin 1s linear infinite' }} />
                   上链中...
                 </>
               ) : (
                 '提交到区块链'
               )}
-            </Button>
+            </button>
           ) : (
-            <Button
+            <button
               onClick={handleConnectX}
               disabled={isLoading || isPending || isConfirming || !primusInitialized}
-              size="sm"
+              style={{
+                background: 'linear-gradient(135deg, #3b82f6, #2563eb)',
+                color: '#fff',
+                border: 'none',
+                borderRadius: '12px',
+                padding: '10px 20px',
+                fontSize: '14px',
+                fontWeight: '600',
+                cursor: isLoading || isPending || isConfirming || !primusInitialized ? 'not-allowed' : 'pointer',
+                transition: 'all 0.2s ease',
+                opacity: isLoading || isPending || isConfirming || !primusInitialized ? 0.7 : 1,
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                fontFamily: 'inherit',
+                boxShadow: '0 4px 15px rgba(59, 130, 246, 0.3)'
+              }}
+              onMouseEnter={(e) => {
+                if (!isLoading && !isPending && !isConfirming && primusInitialized) {
+                  e.currentTarget.style.transform = 'translateY(-1px)';
+                  e.currentTarget.style.boxShadow = '0 6px 20px rgba(59, 130, 246, 0.4)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 4px 15px rgba(59, 130, 246, 0.3)';
+              }}
             >
               {isLoading || isPending || isConfirming ? (
                 <>
-                  <Loader2 style={{ width: '16px', height: '16px', marginRight: '8px', animation: 'spin 1s linear infinite' }} />
+                  <Loader2 style={{ width: '16px', height: '16px', animation: 'spin 1s linear infinite' }} />
                   验证中...
                 </>
               ) : (
                 '连接X账号'
               )}
-            </Button>
+            </button>
           )}
         </div>
       </div>
 
       {verificationStatus && (
-        <div style={{ padding: '16px', backgroundColor: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: '8px' }}>
-          <h4 style={{ fontWeight: '600', color: '#1e40af', marginBottom: '8px' }}>验证进度</h4>
-          <p style={{ color: '#1d4ed8' }}>{verificationStatus}</p>
+        <div style={{ 
+          padding: '20px', 
+          background: 'linear-gradient(135deg, #eff6ff, #dbeafe)', 
+          borderRadius: '16px',
+          border: '1px solid rgba(59, 130, 246, 0.2)',
+          boxShadow: '0 4px 15px rgba(59, 130, 246, 0.1)'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+            <Loader2 style={{ width: '20px', height: '20px', color: '#3b82f6', animation: 'spin 1s linear infinite' }} />
+            <h4 style={{ fontWeight: '600', color: '#1e40af', margin: 0 }}>验证进度</h4>
+          </div>
+          <p style={{ color: '#1d4ed8', margin: 0, fontSize: '16px' }}>{verificationStatus}</p>
         </div>
       )}
 
 
       {verifiedXAccount && !isWalletBound && (
-        <div style={{ padding: '16px', backgroundColor: '#eff6ff', border: '1px solid #bfdbfe', borderRadius: '8px' }}>
-          <h4 style={{ fontWeight: '600', color: '#1e40af', marginBottom: '8px' }}>✅ X账号验证成功</h4>
-          <p style={{ color: '#1d4ed8' }}>
-            <span style={{ fontWeight: '500' }}>@{verifiedXAccount}</span>
-          </p>
-          <p style={{ fontSize: '14px', color: '#2563eb', marginTop: '4px' }}>
-            钱包地址: {address}
-          </p>
-          <p style={{ fontSize: '12px', color: '#3b82f6', marginTop: '8px', fontWeight: '500' }}>
-            📝 验证成功！请点击&quot;提交到区块链&quot;按钮完成绑定
-          </p>
+        <div style={{ 
+          padding: '24px', 
+          background: 'linear-gradient(135deg, #eff6ff, #dbeafe)', 
+          borderRadius: '16px',
+          border: '1px solid rgba(59, 130, 246, 0.2)',
+          boxShadow: '0 8px 25px rgba(59, 130, 246, 0.15)'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+            <CheckCircle style={{ width: '24px', height: '24px', color: '#10b981' }} />
+            <h4 style={{ fontWeight: '700', color: '#1e40af', margin: 0, fontSize: '18px' }}>
+              X账号验证成功
+            </h4>
+          </div>
+          <div style={{ 
+            background: 'rgba(255, 255, 255, 0.7)',
+            borderRadius: '12px',
+            padding: '16px',
+            marginBottom: '16px'
+          }}>
+            <p style={{ color: '#1e40af', margin: '0 0 8px 0', fontSize: '16px', fontWeight: '600' }}>
+              账号名: <span style={{ color: '#2563eb' }}>@{verifiedXAccount}</span>
+            </p>
+            <p style={{ fontSize: '14px', color: '#6b7280', margin: 0 }}>
+              钱包地址: <span style={{ fontFamily: 'monospace', fontSize: '13px' }}>{address}</span>
+            </p>
+          </div>
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '8px',
+            padding: '12px 16px',
+            background: 'rgba(16, 185, 129, 0.1)',
+            borderRadius: '12px',
+            border: '1px solid rgba(16, 185, 129, 0.2)'
+          }}>
+            <span style={{ fontSize: '16px' }}>📝</span>
+            <p style={{ fontSize: '14px', color: '#059669', margin: 0, fontWeight: '500' }}>
+              验证成功！请点击“提交到区块链”按钮完成绑定
+            </p>
+          </div>
         </div>
       )}
 
       {boundXAccount && (
-        <div style={{ padding: '16px', backgroundColor: '#f0fdf4', border: '1px solid #bbf7d0', borderRadius: '8px' }}>
-          <h4 style={{ fontWeight: '600', color: '#166534', marginBottom: '8px' }}>✅ 已绑定的X账号</h4>
-          <p style={{ color: '#15803d' }}>
-            <span style={{ fontWeight: '500' }}>@{boundXAccount}</span>
-          </p>
-          <p style={{ fontSize: '12px', color: '#22c55e', marginTop: '8px', fontWeight: '500' }}>
-            🎉 获得+10积分
-          </p>
+        <div style={{ 
+          padding: '24px', 
+          background: 'linear-gradient(135deg, #f0fdf4, #dcfce7)', 
+          borderRadius: '16px',
+          border: '1px solid rgba(34, 197, 94, 0.2)',
+          boxShadow: '0 8px 25px rgba(34, 197, 94, 0.15)'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+            <CheckCircle style={{ width: '24px', height: '24px', color: '#10b981' }} />
+            <h4 style={{ fontWeight: '700', color: '#166534', margin: 0, fontSize: '18px' }}>
+              已绑定的X账号
+            </h4>
+          </div>
+          <div style={{ 
+            background: 'rgba(255, 255, 255, 0.8)',
+            borderRadius: '12px',
+            padding: '16px',
+            marginBottom: '16px'
+          }}>
+            <p style={{ color: '#166534', margin: 0, fontSize: '16px', fontWeight: '600' }}>
+              账号名: <span style={{ color: '#15803d' }}>@{boundXAccount}</span>
+            </p>
+          </div>
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: '8px',
+            padding: '12px 16px',
+            background: 'rgba(34, 197, 94, 0.1)',
+            borderRadius: '12px',
+            border: '1px solid rgba(34, 197, 94, 0.2)'
+          }}>
+            <span style={{ fontSize: '16px' }}>🎉</span>
+            <p style={{ fontSize: '14px', color: '#15803d', margin: 0, fontWeight: '600' }}>
+              获得 +10 积分
+            </p>
+          </div>
         </div>
       )}
     </div>

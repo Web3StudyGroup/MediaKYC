@@ -3,10 +3,8 @@
 import { ConnectWallet } from '@/components/connect-wallet';
 import { XAccountBinding } from '@/components/x-account-binding';
 import { BilibiliAccountBinding } from '@/components/bilibili-account-binding';
-import { VerificationCard } from '@/components/verification-card';
 import { UserInfoCard } from '@/components/user-info-card';
 import { PluginStatusCard } from '@/components/plugin-status-card';
-import { PageGrid } from '@/components/page-grid';
 import { AboutSection } from '@/components/about-section';
 import { useAccount, useReadContract } from 'wagmi';
 import { Shield, X as Twitter } from 'lucide-react';
@@ -223,59 +221,186 @@ export default function Home() {
 
   if (!mounted) {
     return (
-      <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom right, #eff6ff, #e0e7ff)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '32px 16px' }}>
-          <div style={{ textAlign: 'center' }}>
-            <h1 style={{ fontSize: '36px', fontWeight: 'bold', color: '#111827', marginBottom: '16px' }}>
-              MediaKYC
-            </h1>
-            <p style={{ fontSize: '20px', color: '#4b5563' }}>加载中...</p>
+      <div style={{ 
+        minHeight: '100vh', 
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}>
+        <div style={{ textAlign: 'center' }}>
+          <div style={{
+            width: '80px',
+            height: '80px',
+            background: 'linear-gradient(135deg, #ff6b6b, #ee5a24)',
+            borderRadius: '20px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            margin: '0 auto 24px',
+            boxShadow: '0 20px 40px rgba(255, 107, 107, 0.3)',
+            animation: 'pulse 2s infinite'
+          }}>
+            <Shield style={{ width: '40px', height: '40px', color: '#fff' }} />
           </div>
+          <h1 style={{ 
+            fontSize: '48px', 
+            fontWeight: '800', 
+            color: '#fff', 
+            marginBottom: '16px',
+            letterSpacing: '-1px'
+          }}>
+            MediaKYC
+          </h1>
+          <p style={{ 
+            fontSize: '20px', 
+            color: 'rgba(255, 255, 255, 0.8)',
+            fontWeight: '400'
+          }}>
+            加载中...
+          </p>
         </div>
+        <style>{`
+          @keyframes pulse {
+            0%, 100% {
+              transform: scale(1);
+            }
+            50% {
+              transform: scale(1.05);
+            }
+          }
+        `}</style>
       </div>
     );
   }
 
   return (
-    <div style={{ minHeight: '100vh', background: 'linear-gradient(to bottom right, #eff6ff, #e0e7ff)' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '32px 16px' }}>
-        <header style={{ marginBottom: '48px' }}>
-          {/* Top Navigation with Wallet */}
-          <div style={{ 
-            display: 'flex', 
-            justifyContent: 'space-between', 
-            alignItems: 'center', 
-            marginBottom: '32px',
-            padding: '16px 0'
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-              <Shield style={{ width: '32px', height: '32px', color: '#2563eb' }} />
-              <h2 style={{ fontSize: '24px', fontWeight: 'bold', color: '#111827', margin: 0 }}>
+    <div style={{ 
+      minHeight: '100vh', 
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      fontFamily: 'system-ui, -apple-system, sans-serif'
+    }}>
+      <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 20px' }}>
+        {/* Top Navigation */}
+        <nav style={{ 
+          display: 'flex', 
+          justifyContent: 'space-between', 
+          alignItems: 'center', 
+          padding: '24px 0',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <div style={{
+              width: '48px',
+              height: '48px',
+              background: 'linear-gradient(135deg, #ff6b6b, #ee5a24)',
+              borderRadius: '12px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 8px 25px rgba(255, 107, 107, 0.3)'
+            }}>
+              <Shield style={{ width: '24px', height: '24px', color: '#fff' }} />
+            </div>
+            <div>
+              <h1 style={{ 
+                fontSize: '28px', 
+                fontWeight: '800', 
+                color: '#fff', 
+                margin: 0,
+                letterSpacing: '-0.5px'
+              }}>
                 MediaKYC
-              </h2>
-            </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-              <ConnectWallet />
+              </h1>
+              <p style={{ 
+                fontSize: '14px', 
+                color: 'rgba(255, 255, 255, 0.8)', 
+                margin: 0,
+                fontWeight: '500'
+              }}>
+                Web3身份验证平台
+              </p>
             </div>
           </div>
-          
-          {/* Main Title and Description */}
-          <div style={{ textAlign: 'center' }}>
-            <h1 style={{ fontSize: '36px', fontWeight: 'bold', color: '#111827', marginBottom: '16px' }}>
-              基于Web2软件的链上身份验证系统
-            </h1>
-            <p style={{ fontSize: '20px', color: '#4b5563', maxWidth: '1672px', margin: '0 auto' }}>
-              无需授权任何社交账号，安全地将您的社交账号与钱包地址绑定，用于KYC和领取空投。积分越高，该钱包越接近真人。
-            </p>
-            <p style={{ fontSize: '20px', color: '#4b5563', maxWidth: '1672px', margin: '0 auto' }}>
-              目前包括：X Account，Youtube，Netflix，LinkedIn，Facebook，Binance KYC，OKX KYC，Bilibili，优酷，腾讯视频，爱奇艺，and more
-            </p>
-          </div>
-        </header>
+          <ConnectWallet />
+        </nav>
 
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          {/* First Row: User Info, Plugin Status, X Account */}
-          <PageGrid>
+        {/* Hero Section */}
+        <section style={{ 
+          textAlign: 'center', 
+          padding: '20px 0',
+          maxWidth: '900px',
+          margin: '0 auto'
+        }}>
+          <h2 style={{ 
+            fontSize: '48px', 
+            fontWeight: '800', 
+            color: '#fff', 
+            marginBottom: '24px',
+            lineHeight: '1.2',
+            letterSpacing: '-1px'
+          }}>
+            基于Web2软件的
+            <span style={{ 
+              background: 'linear-gradient(135deg, #ff6b6b, #feca57)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}>
+              链上身份验证
+            </span>
+            系统
+          </h2>
+          <p style={{ 
+            fontSize: '20px', 
+            color: 'rgba(255, 255, 255, 0.9)', 
+            lineHeight: '1.6',
+            marginBottom: '16px',
+            fontWeight: '400'
+          }}>
+            无需授权任何社交账号，安全地将您的社交账号与钱包地址绑定
+          </p>
+          <p style={{ 
+            fontSize: '18px', 
+            color: 'rgba(255, 255, 255, 0.8)', 
+            lineHeight: '1.6',
+            marginBottom: '40px'
+          }}>
+            用于KYC验证和空投资格认证 • 积分越高，钱包真实度越高
+          </p>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'center',
+            gap: '12px',
+            flexWrap: 'wrap',
+            marginBottom: '20px'
+          }}>
+            {['X Account', 'YouTube', 'Netflix', 'LinkedIn', 'Binance KYC', 'Bilibili'].map((platform) => (
+              <span key={platform} style={{
+                padding: '8px 16px',
+                background: 'rgba(255, 255, 255, 0.15)',
+                borderRadius: '25px',
+                color: '#fff',
+                fontSize: '14px',
+                fontWeight: '500',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255, 255, 255, 0.2)'
+              }}>
+                {platform}
+              </span>
+            ))}
+          </div>
+        </section>
+
+        {/* Dashboard Section */}
+        <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '20px 0' }}>
+          {/* Stats Cards Row */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gap: '20px',
+            marginBottom: '40px'
+          }}>
             <UserInfoCard
               isConnected={isConnected}
               address={address}
@@ -286,70 +411,229 @@ export default function Home() {
                 bilibili: !!isBilibiliVerified
               }}
             />
-
             <PluginStatusCard primusStatus={primusStatus} />
+          </div>
 
-            <VerificationCard
-              title="验证 X 账号"
-              description="使用 Primus zkTLS 技术验证您的 X 账号"
-              icon={<Twitter style={{ width: '32px', height: '32px' }} />}
-              iconBackgroundColor="#dbeafe"
-              iconColor="#2563eb"
-              isConnected={isConnected}
-            >
+          {/* Verification Cards */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
+            gap: '20px',
+            marginBottom: '60px'
+          }}>
+            {/* X Account Card */}
+            <div style={{
+              background: 'rgba(255, 255, 255, 0.95)',
+              borderRadius: '16px',
+              padding: '24px',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)'
+            }}>
+              <div style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '12px',
+                marginBottom: '20px'
+              }}>
+                <div style={{
+                  width: '48px',
+                  height: '48px',
+                  background: 'linear-gradient(135deg, #1da1f2, #0d8bd9)',
+                  borderRadius: '12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  boxShadow: '0 8px 25px rgba(29, 161, 242, 0.3)'
+                }}>
+                  <Twitter style={{ width: '24px', height: '24px', color: '#fff' }} />
+                </div>
+                <div>
+                  <h3 style={{ 
+                    fontSize: '20px', 
+                    fontWeight: '700', 
+                    color: '#1a1a1a',
+                    margin: 0,
+                    marginBottom: '4px'
+                  }}>
+                    验证 X 账号
+                  </h3>
+                  <p style={{ 
+                    fontSize: '14px', 
+                    color: '#666',
+                    margin: 0
+                  }}>
+                    使用 Primus zkTLS 技术验证您的 X 账号
+                  </p>
+                </div>
+              </div>
               {isConnected && <XAccountBinding onPrimusStatusChange={handlePrimusStatusChange} />}
-            </VerificationCard>
-          </PageGrid>
+              {!isConnected && (
+                <p style={{ 
+                  textAlign: 'center', 
+                  color: '#999',
+                  fontSize: '16px',
+                  margin: '20px 0'
+                }}>
+                  请先连接钱包
+                </p>
+              )}
+            </div>
 
-          {/* Second Row: Bilibili and Other Platforms */}
-          <PageGrid>
-            <VerificationCard
-              title="验证 Bilibili 账号"
-              description="使用 Primus zkTLS 技术验证您的 Bilibili 等级和VIP状态"
-              icon="B"
-              iconBackgroundColor="#ffefef"
-              iconColor="#ff6b6b"
-              isConnected={isConnected}
-            >
+            {/* Bilibili Account Card */}
+            <div style={{
+              background: 'rgba(255, 255, 255, 0.95)',
+              borderRadius: '16px',
+              padding: '24px',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)'
+            }}>
+              <div style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '12px',
+                marginBottom: '20px'
+              }}>
+                <div style={{
+                  width: '48px',
+                  height: '48px',
+                  background: 'linear-gradient(135deg, #ff6b9d, #ff8e8e)',
+                  borderRadius: '12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '24px',
+                  fontWeight: '700',
+                  color: '#fff',
+                  boxShadow: '0 8px 25px rgba(255, 107, 157, 0.3)'
+                }}>
+                  B
+                </div>
+                <div>
+                  <h3 style={{ 
+                    fontSize: '20px', 
+                    fontWeight: '700', 
+                    color: '#1a1a1a',
+                    margin: 0,
+                    marginBottom: '4px'
+                  }}>
+                    验证 Bilibili 账号
+                  </h3>
+                  <p style={{ 
+                    fontSize: '14px', 
+                    color: '#666',
+                    margin: 0
+                  }}>
+                    验证您的 Bilibili 等级和VIP状态
+                  </p>
+                </div>
+              </div>
               {isConnected && <BilibiliAccountBinding/>}
-            </VerificationCard>
+              {!isConnected && (
+                <p style={{ 
+                  textAlign: 'center', 
+                  color: '#999',
+                  fontSize: '16px',
+                  margin: '20px 0'
+                }}>
+                  请先连接钱包
+                </p>
+              )}
+            </div>
+          </div>
 
-            {platformConfigs.slice(0, 2).map((config) => (
-              <VerificationCard
-                key={config.key}
-                title={config.title}
-                description={config.description}
-                icon={config.icon}
-                iconBackgroundColor={config.iconBackgroundColor}
-                iconColor={config.iconColor}
-                buttonColor={config.buttonColor}
-                isConnected={isConnected}
-                onButtonClick={config.onButtonClick}
-              />
-            ))}
-          </PageGrid>
+          {/* Other Platforms Section */}
+          <div style={{ marginBottom: '60px' }}>
+            <h3 style={{
+              fontSize: '32px',
+              fontWeight: '700',
+              color: '#fff',
+              textAlign: 'center',
+              marginBottom: '40px'
+            }}>
+              即将支持更多平台
+            </h3>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: '20px'
+            }}>
+              {platformConfigs.map((config) => (
+                <div key={config.key} style={{
+                  background: 'rgba(255, 255, 255, 0.1)',
+                  borderRadius: '16px',
+                  padding: '24px',
+                  backdropFilter: 'blur(10px)',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  textAlign: 'center',
+                  transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+                  cursor: 'not-allowed',
+                  opacity: 0.7
+                }}>
+                  <div style={{
+                    width: '50px',
+                    height: '50px',
+                    background: config.iconBackgroundColor,
+                    borderRadius: '12px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    margin: '0 auto 16px',
+                    fontSize: '20px',
+                    fontWeight: '700',
+                    color: config.iconColor
+                  }}>
+                    {config.icon}
+                  </div>
+                  <h4 style={{
+                    fontSize: '18px',
+                    fontWeight: '600',
+                    color: '#fff',
+                    margin: '0 0 8px 0'
+                  }}>
+                    {config.title}
+                  </h4>
+                  <p style={{
+                    fontSize: '14px',
+                    color: 'rgba(255, 255, 255, 0.8)',
+                    margin: '0 0 16px 0',
+                    lineHeight: '1.4'
+                  }}>
+                    {config.description}
+                  </p>
+                  <div style={{
+                    padding: '8px 16px',
+                    background: 'rgba(255, 255, 255, 0.1)',
+                    borderRadius: '20px',
+                    color: 'rgba(255, 255, 255, 0.6)',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    display: 'inline-block'
+                  }}>
+                    开发中...
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
 
-          {/* Third Row: Remaining Platforms */}
-          <PageGrid>
-            {platformConfigs.slice(2).map((config) => (
-              <VerificationCard
-                key={config.key}
-                title={config.title}
-                description={config.description}
-                icon={config.icon}
-                iconBackgroundColor={config.iconBackgroundColor}
-                iconColor={config.iconColor}
-                buttonColor={config.buttonColor}
-                isConnected={isConnected}
-                onButtonClick={config.onButtonClick}
-              />
-            ))}
-            {/* Empty div to maintain 3-column layout */}
-            <div />
-          </PageGrid>
-
-          <AboutSection />
+          {/* <AboutSection /> */}
         </div>
+        {/* Footer */}
+        <footer style={{
+          borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+          padding: '40px 0',
+          textAlign: 'center'
+        }}>
+          <p style={{
+            color: 'rgba(255, 255, 255, 0.6)',
+            fontSize: '16px',
+            margin: 0
+          }}>
+            © 2024 MediaKYC. 基于zkTLS技术的Web3身份验证平台
+          </p>
+        </footer>
       </div>
     </div>
   );
