@@ -62,6 +62,16 @@ const BILIBILI_CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_BILIBILI_CONTRACT_ADDR
 // Platform configurations
 const platformConfigs = [
   {
+    key: 'youtube',
+    title: '验证 YouTube 账号',
+    description: '验证您的 YouTube 账号和Premium状态',
+    icon: '▶',
+    iconBackgroundColor: '#ffebee',
+    iconColor: '#ff0000',
+    buttonColor: '#ff0000',
+    onButtonClick: () => alert('开发中...')
+  },
+  {
     key: 'youku',
     title: '验证优酷账号',
     description: '验证您的优酷账号和VIP状态',
@@ -522,7 +532,7 @@ export default function Home() {
               )}
             </div>
 
-            {/* YouTube Account Card */}
+            {/* TikTok Account Card */}
             <div style={{
               background: 'rgba(255, 255, 255, 0.95)',
               borderRadius: '16px',
@@ -540,7 +550,7 @@ export default function Home() {
                 <div style={{
                   width: '48px',
                   height: '48px',
-                  background: 'linear-gradient(135deg, #ff0000, #cc0000)',
+                  background: 'linear-gradient(135deg, #000000, #333333)',
                   borderRadius: '12px',
                   display: 'flex',
                   alignItems: 'center',
@@ -548,9 +558,9 @@ export default function Home() {
                   fontSize: '24px',
                   fontWeight: '700',
                   color: '#fff',
-                  boxShadow: '0 8px 25px rgba(255, 0, 0, 0.3)'
+                  boxShadow: '0 8px 25px rgba(0, 0, 0, 0.3)'
                 }}>
-                  ▶
+                  🎵
                 </div>
                 <div>
                   <h3 style={{ 
@@ -560,14 +570,14 @@ export default function Home() {
                     margin: 0,
                     marginBottom: '4px'
                   }}>
-                    验证 YouTube 账号
+                    验证 TikTok 账号
                   </h3>
                   <p style={{ 
                     fontSize: '14px', 
                     color: '#666',
                     margin: 0
                   }}>
-                    验证您的 YouTube 账号和Premium状态
+                    验证您的 TikTok 账号和粉丝数量
                   </p>
                 </div>
               </div>
@@ -577,8 +587,8 @@ export default function Home() {
                 alignItems: 'center',
                 padding: '40px 20px',
                 borderRadius: '12px',
-                background: 'rgba(255, 0, 0, 0.1)',
-                border: '2px dashed rgba(255, 0, 0, 0.3)'
+                background: 'rgba(0, 0, 0, 0.1)',
+                border: '2px dashed rgba(0, 0, 0, 0.3)'
               }}>
                 <p style={{
                   color: '#666',
