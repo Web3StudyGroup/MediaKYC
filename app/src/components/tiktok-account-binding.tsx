@@ -147,12 +147,12 @@ export function TikTokAccountBinding() {
     if (!attestation || !isConnected) return;
 
     try {
-      writeContract({
-        address: TIKTOK_CONTRACT_ADDRESS,
-        abi: tiktokContractABI,
-        functionName: 'verifyAndRegisterTikTok',
-        args: [attestation],
-      });
+      // writeContract({
+      //   address: TIKTOK_CONTRACT_ADDRESS,
+      //   abi: tiktokContractABI,
+      //   functionName: 'verifyAndRegisterTikTok',
+      //   args: [attestation],
+      // });
     } catch (error) {
       console.error('Blockchain submission failed:', error);
       toast({

@@ -147,12 +147,12 @@ export function BinanceAccountBinding() {
     if (!attestation || !isConnected) return;
 
     try {
-      writeContract({
-        address: BINANCE_CONTRACT_ADDRESS,
-        abi: binanceContractABI,
-        functionName: 'verifyAndRegisterBinance',
-        args: [attestation],
-      });
+      // writeContract({
+      //   address: BINANCE_CONTRACT_ADDRESS,
+      //   abi: binanceContractABI,
+      //   functionName: 'verifyAndRegisterBinance',
+      //   args: [attestation],
+      // });
     } catch (error) {
       console.error('Blockchain submission failed:', error);
       toast({
