@@ -62,16 +62,6 @@ const BILIBILI_CONTRACT_ADDRESS = process.env.NEXT_PUBLIC_BILIBILI_CONTRACT_ADDR
 // Platform configurations
 const platformConfigs = [
   {
-    key: 'binance',
-    title: '验证 Binance 账号',
-    description: '验证您的 Binance KYC 状态和账户信息',
-    icon: 'B',
-    iconBackgroundColor: '#fef7e3',
-    iconColor: '#f0b90b',
-    buttonColor: '#f0b90b',
-    onButtonClick: () => alert('开发中...')
-  },
-  {
     key: 'youku',
     title: '验证优酷账号',
     description: '验证您的优酷账号和VIP状态',
@@ -79,16 +69,6 @@ const platformConfigs = [
     iconBackgroundColor: '#e6f3ff',
     iconColor: '#0080ff',
     buttonColor: '#0080ff',
-    onButtonClick: () => alert('开发中...')
-  },
-  {
-    key: 'youtube',
-    title: '验证 YouTube 账号',
-    description: '验证您的 YouTube 账号和Premium状态',
-    icon: '▶',
-    iconBackgroundColor: '#ffebee',
-    iconColor: '#ff0000',
-    buttonColor: '#ff0000',
     onButtonClick: () => alert('开发中...')
   },
   {
@@ -397,7 +377,7 @@ export default function Home() {
           {/* Stats Cards Row */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+            gridTemplateColumns: 'repeat(3, 1fr)',
             gap: '20px',
             marginBottom: '40px'
           }}>
@@ -412,15 +392,7 @@ export default function Home() {
               }}
             />
             <PluginStatusCard primusStatus={primusStatus} />
-          </div>
-
-          {/* Verification Cards */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
-            gap: '20px',
-            marginBottom: '60px'
-          }}>
+            
             {/* X Account Card */}
             <div style={{
               background: 'rgba(255, 255, 255, 0.95)',
@@ -479,7 +451,15 @@ export default function Home() {
                 </p>
               )}
             </div>
+          </div>
 
+          {/* Verification Cards */}
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(3, 1fr)',
+            gap: '20px',
+            marginBottom: '60px'
+          }}>
             {/* Bilibili Account Card */}
             <div style={{
               background: 'rgba(255, 255, 255, 0.95)',
@@ -540,6 +520,144 @@ export default function Home() {
                   请先连接钱包
                 </p>
               )}
+            </div>
+
+            {/* YouTube Account Card */}
+            <div style={{
+              background: 'rgba(255, 255, 255, 0.95)',
+              borderRadius: '16px',
+              padding: '24px',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)'
+            }}>
+              <div style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '12px',
+                marginBottom: '20px'
+              }}>
+                <div style={{
+                  width: '48px',
+                  height: '48px',
+                  background: 'linear-gradient(135deg, #ff0000, #cc0000)',
+                  borderRadius: '12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '24px',
+                  fontWeight: '700',
+                  color: '#fff',
+                  boxShadow: '0 8px 25px rgba(255, 0, 0, 0.3)'
+                }}>
+                  ▶
+                </div>
+                <div>
+                  <h3 style={{ 
+                    fontSize: '20px', 
+                    fontWeight: '700', 
+                    color: '#1a1a1a',
+                    margin: 0,
+                    marginBottom: '4px'
+                  }}>
+                    验证 YouTube 账号
+                  </h3>
+                  <p style={{ 
+                    fontSize: '14px', 
+                    color: '#666',
+                    margin: 0
+                  }}>
+                    验证您的 YouTube 账号和Premium状态
+                  </p>
+                </div>
+              </div>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: '40px 20px',
+                borderRadius: '12px',
+                background: 'rgba(255, 0, 0, 0.1)',
+                border: '2px dashed rgba(255, 0, 0, 0.3)'
+              }}>
+                <p style={{
+                  color: '#666',
+                  fontSize: '16px',
+                  fontWeight: '500',
+                  margin: 0
+                }}>
+                  开发中...
+                </p>
+              </div>
+            </div>
+
+            {/* Binance Account Card */}
+            <div style={{
+              background: 'rgba(255, 255, 255, 0.95)',
+              borderRadius: '16px',
+              padding: '24px',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1)'
+            }}>
+              <div style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '12px',
+                marginBottom: '20px'
+              }}>
+                <div style={{
+                  width: '48px',
+                  height: '48px',
+                  background: 'linear-gradient(135deg, #f0b90b, #d99e00)',
+                  borderRadius: '12px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '24px',
+                  fontWeight: '700',
+                  color: '#fff',
+                  boxShadow: '0 8px 25px rgba(240, 185, 11, 0.3)'
+                }}>
+                  B
+                </div>
+                <div>
+                  <h3 style={{ 
+                    fontSize: '20px', 
+                    fontWeight: '700', 
+                    color: '#1a1a1a',
+                    margin: 0,
+                    marginBottom: '4px'
+                  }}>
+                    验证 Binance 账号
+                  </h3>
+                  <p style={{ 
+                    fontSize: '14px', 
+                    color: '#666',
+                    margin: 0
+                  }}>
+                    验证您的 Binance KYC 状态和账户信息
+                  </p>
+                </div>
+              </div>
+              <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: '40px 20px',
+                borderRadius: '12px',
+                background: 'rgba(240, 185, 11, 0.1)',
+                border: '2px dashed rgba(240, 185, 11, 0.3)'
+              }}>
+                <p style={{
+                  color: '#666',
+                  fontSize: '16px',
+                  fontWeight: '500',
+                  margin: 0
+                }}>
+                  开发中...
+                </p>
+              </div>
             </div>
           </div>
 
