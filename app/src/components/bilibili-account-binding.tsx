@@ -448,7 +448,7 @@ export function BilibiliAccountBinding({ onBindingComplete}: BilibiliAccountBind
             钱包地址: {address}
           </p>
           <p style={{ fontSize: '12px', color: '#dc3545', marginTop: '8px', fontWeight: '500' }}>
-            📝 验证成功！请点击"提交到区块链"按钮完成绑定
+            📝 验证成功！请点击&ldquo;提交到区块链&rdquo;按钮完成绑定
           </p>
         </div>
       )}
